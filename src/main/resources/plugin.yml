@@ -1,0 +1,6 @@
+name: SimpleClansUtils
+version: ${project.version}
+#website:
+author: RoboMWM
+main: me.robomwm.SimpleClansUtils.Main
+depend: [SimpleClans]
