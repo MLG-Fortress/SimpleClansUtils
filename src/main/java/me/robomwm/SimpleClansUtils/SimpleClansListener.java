@@ -2,6 +2,7 @@ package me.robomwm.SimpleClansUtils;
 
 import net.sacredlabyrinth.phaed.simpleclans.Clan;
 import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
+import net.sacredlabyrinth.phaed.simpleclans.managers.ClanManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,18 +21,19 @@ import org.bukkit.scoreboard.Team;
 public class SimpleClansListener implements Listener
 {
     private Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+    ClanManager clanManager = new ClanManager();
     BukkitScheduler scheduler = Bukkit.getScheduler();
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerJoin(PlayerJoinEvent event)
     {
-
-        ClanPlayer clanPlayer = (ClanPlayer)event.getPlayer();
+        final Player player = event.getPlayer();
+        ClanPlayer clanPlayer = clanManager.getClanPlayer(player);
         Clan clan = clanPlayer.getClan();
         if (clan == null) //If not part of a clan, do no more
             return;
 
         final String tag = clan.getTag();
-        final Player player = event.getPlayer();
+
 
         //Feature: set prefix in tablist
         //compatible with other prefix/suffix plugins since we just set PlayerListName
