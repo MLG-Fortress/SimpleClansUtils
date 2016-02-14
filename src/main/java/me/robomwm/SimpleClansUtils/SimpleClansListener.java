@@ -40,12 +40,14 @@ public class SimpleClansListener implements Listener
         ClanPlayer clanPlayer = clanManager.getClanPlayer(player);
         if (clanPlayer == null)
             return;
+        System.out.println(player.getName() + " is in SimpleClans db.");
         Clan clan = clanPlayer.getClan();
         if (clan == null) //If not part of a clan, do no more
             return;
 
-        final String tag = clan.getTag();
 
+        final String tag = clan.getTag();
+        System.out.println(player.getName() + " has a clan: " + tag);
 
         //Feature: set prefix in tablist
         //compatible with other prefix/suffix plugins since we just set PlayerListName
