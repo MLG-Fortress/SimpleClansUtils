@@ -104,7 +104,7 @@ public class SimpleClansListener implements Listener
                 if (team == null)
                     return;
                 if (team.getSuffix().equals(": " + message))
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "healthbar reloadplayer " + player);
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "healthbar reloadplayer " + player.getName());
             }
         }, 70L);
 
