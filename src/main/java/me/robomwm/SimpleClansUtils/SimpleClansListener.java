@@ -24,13 +24,15 @@ public class SimpleClansListener implements Listener
     private Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
     ClanManager clanManager;
     BukkitScheduler scheduler = Bukkit.getScheduler();
+    public Main instance;
 
-    public SimpleClansListener()
+    public SimpleClansListener(Main main)
     {
         SimpleClans sc = (SimpleClans)Bukkit.getPluginManager().getPlugin("SimpleClans");
         clanManager = sc.getClanManager();
+        instance = main;
     }
-    
+
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerJoin(PlayerJoinEvent event)
     {
@@ -47,7 +49,7 @@ public class SimpleClansListener implements Listener
 
         //Feature: set prefix in tablist
         //compatible with other prefix/suffix plugins since we just set PlayerListName
-        scheduler.scheduleSyncDelayedTask((Plugin)this, new Runnable()
+        scheduler.scheduleSyncDelayedTask(instance, new Runnable()
         {
             public void run()
             {
@@ -56,7 +58,7 @@ public class SimpleClansListener implements Listener
         }, 30L); //Long delay to ensure this has priority & no need to instantly set
 
 
-        scheduler.scheduleSyncDelayedTask((Plugin) this, new Runnable() {
+        scheduler.scheduleSyncDelayedTask(instance, new Runnable() {
             public void run()
             {
                 Team team = sb.getTeam(player.getName());
@@ -78,7 +80,7 @@ public class SimpleClansListener implements Listener
         final Player player = event.getPlayer();
         final String message = event.getMessage();
 
-        scheduler.scheduleSyncDelayedTask((Plugin) this, new Runnable()
+        scheduler.scheduleSyncDelayedTask(instance, new Runnable()
         {
             public void run()
             {
@@ -90,7 +92,7 @@ public class SimpleClansListener implements Listener
             }
         });
 
-        scheduler.scheduleSyncDelayedTask((Plugin)this, new Runnable()
+        scheduler.scheduleSyncDelayedTask(instance, new Runnable()
         {
             public void run()
             {
