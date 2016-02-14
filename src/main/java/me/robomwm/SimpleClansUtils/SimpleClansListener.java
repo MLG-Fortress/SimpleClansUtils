@@ -2,6 +2,7 @@ package me.robomwm.SimpleClansUtils;
 
 import net.sacredlabyrinth.phaed.simpleclans.Clan;
 import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
+import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
 import net.sacredlabyrinth.phaed.simpleclans.managers.ClanManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,13 +22,22 @@ import org.bukkit.scoreboard.Team;
 public class SimpleClansListener implements Listener
 {
     private Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
-    ClanManager clanManager = new ClanManager();
+    ClanManager clanManager;
     BukkitScheduler scheduler = Bukkit.getScheduler();
+
+    public SimpleClansListener()
+    {
+        SimpleClans sc = (SimpleClans)Bukkit.getPluginManager().getPlugin("SimpleClans");
+        clanManager = sc.getClanManager();
+    }
+    
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         final Player player = event.getPlayer();
         ClanPlayer clanPlayer = clanManager.getClanPlayer(player);
+        if (clanPlayer == null)
+            return;
         Clan clan = clanPlayer.getClan();
         if (clan == null) //If not part of a clan, do no more
             return;
