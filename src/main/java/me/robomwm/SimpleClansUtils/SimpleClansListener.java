@@ -46,7 +46,7 @@ public class SimpleClansListener implements Listener
             return;
 
 
-        final String tag = clan.getTag();
+        final String tag = clan.getColorTag();
         System.out.println(player.getName() + " has a clan: " + tag);
 
         //Feature: set prefix in tablist
@@ -80,8 +80,10 @@ public class SimpleClansListener implements Listener
             return; //ignore if they're the only one on or softmuted
 
         final Player player = event.getPlayer();
-        final String message = event.getMessage();
-
+        String mess = event.getMessage();
+        if (mess.length() > 30)
+            mess = mess.substring(mess.indexOf(27)) + "...";
+        final String message = mess;
         scheduler.scheduleSyncDelayedTask(instance, new Runnable()
         {
             public void run()
